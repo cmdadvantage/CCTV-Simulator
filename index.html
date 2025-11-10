@@ -3,75 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guardian Pro CCTV System Simulator | Global Edition</title>
+    <title>Guardian Pro CCTV System Simulator | Professional Planner V3</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom font and base styling for Dark Theme */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Inter:wght@400;600;700&display=swap');
+        /* Custom font and base styling for Light Theme */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0d1117; /* Deep Space Gray */
-            color: #e2e8f0; /* Light text */
+            background-color: #f0f4f8; /* Light blue-gray background */
+            color: #1f2937; /* Dark text */
         }
         
-        /* High-End Card Style (Glass effect) */
-        .glass-card {
-            background-color: rgba(30, 41, 59, 0.7); /* Darker transparent blue */
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(56, 189, 248, 0.2); /* Subtle blue border */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        .main-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
         }
-        
-        /* Canvas Blueprint Style */
+
         #simulatorCanvas {
-            border: 2px solid #00FFFF; /* Electric Cyan Border */
-            background-color: #1a202c; /* Dark Canvas */
+            border: 1px solid #d1d5db;
+            background-color: #f9fafb; /* Very light canvas background */
             width: 100%;
             height: 600px; 
-            cursor: crosshair;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-            transition: border-color 0.3s;
+            cursor: default;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s;
         }
 
-        /* Neon Button Style */
-        .neon-btn {
-            @apply p-3 rounded-lg font-bold transition duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg;
-            border: 1px solid;
-        }
-
-        /* Specific Neon Colors */
-        .btn-cyan {
-            @apply bg-transparent text-cyan-400 border-cyan-400 hover:bg-cyan-900/50;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-        .btn-red {
-            @apply bg-transparent text-red-500 border-red-500 hover:bg-red-900/50;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-        .btn-green {
-            @apply bg-transparent text-green-500 border-green-500 hover:bg-green-900/50;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        /* Clean Button Style */
+        .action-btn {
+            @apply p-3 rounded-lg font-semibold transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-md;
         }
 
         /* Input/Select Styling */
         input, select {
-            @apply bg-gray-700 border-gray-600 text-white rounded-md focus:border-cyan-400 focus:ring-cyan-400;
+            @apply bg-white border-gray-300 text-gray-800 rounded-md focus:border-indigo-500 focus:ring-indigo-500;
         }
+
+        /* Icon Styling for draggable elements */
+        .icon-camera { fill: #3b82f6; stroke: #1d4ed8; }
+        .icon-door { fill: #facc15; stroke: #d97706; }
 
     </style>
 </head>
 <body class="p-4 sm:p-8">
 
-<div class="max-w-7xl mx-auto glass-card rounded-xl p-4 md:p-10">
-    <!-- Header and Mission Control Aesthetic -->
+<div class="max-w-7xl mx-auto main-card rounded-xl p-4 md:p-10 shadow-2xl">
+    <!-- Header -->
     <header class="mb-8 text-center">
-        <h1 class="text-4xl sm:text-5xl font-extrabold mb-2" style="font-family: 'Orbitron', sans-serif; color: #00FFFF; text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);">
-            GUARDIAN PRO // SECURITY CAD
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-indigo-700 mb-2">
+            GUARDIAN PRO | Security Planning Suite
         </h1>
-        <p class="text-xl text-gray-400 font-light">
-            Global High-Fidelity CCTV Planning & DORI Analysis System
+        <p class="text-lg text-gray-600">
+            Design, Analyse, and Optimize Your CCTV System with DORI Clarity.
         </p>
     </header>
 
@@ -80,93 +65,104 @@
 
         <!-- Left Column: Controls Panel -->
         <div class="lg:col-span-1 space-y-6">
-            <h2 class="text-xl font-bold text-cyan-400 border-b border-gray-700 pb-3">
-                DEPLOYMENT INTERFACE
+            <h2 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3">
+                System Interface
             </h2>
 
             <!-- Mode Selection -->
-            <div class="bg-gray-800 p-4 rounded-lg shadow-xl border border-gray-700">
-                <label for="mode-select" class="block text-sm font-medium text-gray-300 mb-2">
-                    // Deployment Mode:
+            <div class="bg-gray-50 p-4 rounded-lg shadow-inner border border-gray-200">
+                <label for="mode-select" class="block text-sm font-medium text-gray-600 mb-2">
+                    Placement Tool (Drag & Drop enabled):
                 </label>
                 <select id="mode-select" onchange="setMode(this.value)"
-                        class="w-full px-3 py-2 text-lg">
-                    <option value="camera" selected>➕ CAMERA DEPLOY</option>
-                    <option value="door">🚪 ENTRY POINT LOG</option>
-                    <option value="wall">🧱 STRUCTURE DRAW</option>
-                    <option value="move">↔️ MOVE/EDIT ASSET</option>
-                    <option value="delete">🗑️ CLEAR ASSET</option>
+                        class="w-full px-3 py-2 text-base">
+                    <option value="camera" selected>📷 Place Camera</option>
+                    <option value="door">🚪 Add Entry Point</option>
+                    <option value="wall">🧱 Draw Structure/Wall</option>
+                    <option value="delete">🗑️ Delete Object</option>
                 </select>
+                <p class="text-xs text-gray-500 mt-1">
+                    Click to place. Click/Drag objects to move or rotate (right-click).
+                </p>
             </div>
 
             <!-- Camera Settings (Dynamic Input) -->
-            <div id="camera-settings" class="bg-gray-800 p-4 rounded-lg shadow-xl border border-cyan-700">
-                <h3 class="font-bold text-cyan-500 mb-3">CAMERA SPECIFICATIONS</h3>
+            <div id="camera-settings" class="bg-indigo-50 p-4 rounded-lg shadow-md border border-indigo-200">
+                <h3 class="font-bold text-indigo-700 mb-3">Camera Specifications</h3>
                 
                 <!-- Focal Length -->
                 <div class="mb-3">
-                    <label for="focal-length" class="block text-sm font-medium text-gray-400">Lens (mm - Focal Length)</label>
+                    <label for="focal-length" class="block text-sm font-medium text-gray-700">Lens (mm - Focal Length)</label>
                     <select id="focal-length" onchange="updateCameraSettings()"
                             class="w-full px-3 py-2">
-                        <option value="2.8">2.8 mm (WIDE - 100° FOV)</option>
-                        <option value="4" selected>4 mm (STANDARD - 78° FOV)</option>
-                        <option value="6">6 mm (ZOOM - 50° FOV)</option>
+                        <option value="2.8">2.8 mm (Wide - 100° FOV)</option>
+                        <option value="4" selected>4 mm (Standard - 78° FOV)</option>
+                        <option value="6">6 mm (Zoom - 50° FOV)</option>
                     </select>
                 </div>
                 
                 <!-- Mounting Height -->
                 <div>
-                    <label for="mount-height" class="block text-sm font-medium text-gray-400">Mount Height (Meters)</label>
+                    <label for="mount-height" class="block text-sm font-medium text-gray-700">Mount Height (Meters)</label>
                     <input type="number" id="mount-height" value="2.5" step="0.5" min="1" oninput="updateCameraSettings()"
                            class="w-full px-3 py-2">
                 </div>
             </div>
 
+            <!-- Map Import Tool (Placeholder for High-End Feature) -->
+            <div class="bg-gray-100 p-4 rounded-lg shadow-md border border-gray-300">
+                <h3 class="font-bold text-gray-700 mb-3">Map Import Tool</h3>
+                <input type="text" id="map-address" placeholder="Enter Address (e.g., 123 Orchard Rd, SG)" class="w-full px-3 py-2 mb-3">
+                <button onclick="importMapSnapshot()" class="action-btn w-full bg-orange-500 text-white hover:bg-orange-600">
+                    🌍 Import Map Snapshot
+                </button>
+            </div>
+
+
             <!-- Global Actions -->
             <div class="space-y-4 pt-2">
-                <button onclick="assessDesign()" class="neon-btn w-full text-white border-green-500 bg-green-900/30 hover:bg-green-700/50" style="box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);">
-                    ANALYSE & GET OPTIMAL SETUP (AI)
+                <button onclick="assessDesign()" class="action-btn w-full bg-indigo-600 text-white hover:bg-indigo-700">
+                    ANALYSE & GET BEST SETUP SUGGESTION
                 </button>
-                <button onclick="clearCanvasPrompt()" class="neon-btn w-full btn-red">
-                    WIPE ALL DATA
+                <button onclick="clearCanvasPrompt()" class="action-btn w-full bg-red-100 text-red-700 hover:bg-red-200">
+                    Clear Blueprint & Start New
                 </button>
             </div>
         </div>
 
         <!-- Right Column: Canvas and Results -->
         <div class="lg:col-span-3">
-            <div class="relative bg-gray-900 rounded-xl shadow-2xl overflow-hidden">
+            <div class="relative bg-gray-200 rounded-xl shadow-inner overflow-hidden">
                 <canvas id="simulatorCanvas" width="900" height="600"></canvas>
             </div>
 
-            <!-- DORI Legend (Blueprint Style) -->
-            <div class="mt-4 p-4 bg-gray-800 rounded-lg shadow-xl border border-gray-700 text-sm">
-                <h3 class="font-bold mb-2 text-cyan-400">// EVIDENCE CLARITY (DORI LEGEND)</h3>
+            <!-- DORI Legend -->
+            <div class="mt-4 p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200 text-sm">
+                <h3 class="font-bold mb-2 text-gray-700">Evidence Clarity (DORI Legend):</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <span class="flex items-center text-red-400"><div class="w-3 h-3 rounded-full mr-2 bg-red-800/50 border border-red-500"></div> D - Detection</span>
-                    <span class="flex items-center text-yellow-400"><div class="w-3 h-3 rounded-full mr-2 bg-yellow-800/50 border border-yellow-500"></div> O - Observation</span>
-                    <span class="flex items-center text-lime-400"><div class="w-3 h-3 rounded-full mr-2 bg-lime-800/50 border border-lime-500"></div> R - Recognition</span>
-                    <span class="flex items-center text-blue-400"><div class="w-3 h-3 rounded-full mr-2 bg-blue-800/50 border border-blue-500"></div> I - Identification</span>
+                    <span class="flex items-center text-red-600"><div class="w-3 h-3 rounded-full mr-2 bg-red-400/50 border border-red-600"></div> Detection</span>
+                    <span class="flex items-center text-yellow-600"><div class="w-3 h-3 rounded-full mr-2 bg-yellow-400/50 border border-yellow-600"></div> Observation</span>
+                    <span class="flex items-center text-green-600"><div class="w-3 h-3 rounded-full mr-2 bg-green-400/50 border border-green-600"></div> Recognition</span>
+                    <span class="flex items-center text-blue-600"><div class="w-3 h-3 rounded-full mr-2 bg-blue-400/50 border border-blue-600"></div> Identification</span>
                 </div>
-                <p class="text-xs text-gray-500 mt-2">DORI metrics calculated using standard PPM values (PPM = Pixels Per Meter).</p>
             </div>
         </div>
     </div>
 
     <!-- Export and Sharing -->
-    <div class="mt-8 p-6 glass-card rounded-xl border-t-2 border-cyan-500">
-        <h2 class="text-2xl font-bold text-cyan-400 mb-4 border-b border-gray-700 pb-2">
-            REPORT & EXPORT MODULE
+    <div class="mt-8 p-6 bg-gray-100 rounded-xl shadow-lg border-t-2 border-indigo-300">
+        <h2 class="text-2xl font-bold text-indigo-700 mb-4 border-b border-gray-300 pb-2">
+            Design Export & Collaboration
         </h2>
         <div class="flex flex-col sm:flex-row gap-4">
-            <button onclick="downloadDesign()" class="neon-btn flex-1 btn-cyan">
-                ⬇️ DOWNLOAD PLAN (PNG/PDF Ready)
+            <button onclick="downloadDesign()" class="action-btn flex-1 bg-green-600 text-white hover:bg-green-700">
+                ⬇️ Download Plan (High-Res PNG / PDF Ready)
             </button>
-            <button onclick="copyShareLink()" class="neon-btn flex-1 btn-cyan">
-                🔗 GENERATE SECURE SHARE LINK
+            <button onclick="copyShareLink()" class="action-btn flex-1 bg-blue-600 text-white hover:bg-blue-700">
+                🔗 Generate Share Link
             </button>
         </div>
-        <p id="message-box" class="mt-4 text-center font-medium text-gray-300"></p>
+        <p id="message-box" class="mt-4 text-center font-medium text-gray-700"></p>
     </div>
 
 </div>
@@ -175,7 +171,7 @@
     // Global Constants and Setup
     const CANVAS = document.getElementById('simulatorCanvas');
     const CTX = CANVAS.getContext('2d');
-    const SCALING_FACTOR = 50; // 50 pixels = 1 meter
+    const SCALING_FACTOR_PIXELS_PER_METER = 50; // 50 pixels = 1 meter
     
     // Camera Sensor Constant (Standard 1/2.7" used for consistency)
     const SENSOR_WIDTH_MM = 5.37;
@@ -183,31 +179,45 @@
     // DORI Standards (Pixels Per Meter - PPM)
     const DORI_THRESHOLDS = {
         IDENTIFICATION: 250, // Blue
-        RECOGNITION: 120, // Lime/Green
-        OBSERVATION: 60, // Yellow/Orange
+        RECOGNITION: 120, // Green
+        OBSERVATION: 60, // Yellow
         DETECTION: 25 // Red
     };
     
     // State Management
     let currentState = {
-        mode: 'camera', // 'camera', 'door', 'wall', 'move', 'delete'
-        objects: [], // Stores all cameras, doors, and walls
+        mode: 'camera', // 'camera', 'door', 'wall', 'delete' (Drag is implicit)
+        objects: [], 
         isDrawing: false,
-        lastX: 0,
-        lastY: 0,
-        selectedObject: null,
+        selectedObject: null, // Used for delete/settings/rotation
     };
+
+    // DRAG AND DROP STATE
+    let draggedObject = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    
+    // MAP BACKGROUND STATE
+    let mapBackground = {
+        image: null,
+        loaded: false,
+        // Mock image URL (a placeholder satellite image)
+        url: 'https://placehold.co/900x600/e0ffe0/000000?text=Satellite+Map+Snapshot+Loaded'
+    };
+
 
     /**
      * Core Drawing Functions
      */
 
     function drawGrid() {
-        CTX.strokeStyle = 'rgba(0, 255, 255, 0.1)'; // Subtle Cyan Blueprint lines
+        if (mapBackground.loaded) return; // Don't draw grid if map is present
+        
+        CTX.strokeStyle = '#d1d5db'; // Light gray grid lines
         CTX.lineWidth = 1;
 
         // Draw horizontal lines (every meter)
-        for (let y = 0; y < CANVAS.height; y += SCALING_FACTOR) {
+        for (let y = 0; y < CANVAS.height; y += SCALING_FACTOR_PIXELS_PER_METER) {
             CTX.beginPath();
             CTX.moveTo(0, y);
             CTX.lineTo(CANVAS.width, y);
@@ -215,7 +225,7 @@
         }
 
         // Draw vertical lines (every meter)
-        for (let x = 0; x < CANVAS.width; x += SCALING_FACTOR) {
+        for (let x = 0; x < CANVAS.width; x += SCALING_FACTOR_PIXELS_PER_METER) {
             CTX.beginPath();
             CTX.moveTo(x, 0);
             CTX.lineTo(x, CANVAS.height);
@@ -224,28 +234,20 @@
     }
 
     function calculateCameraFOV(camera) {
-        // Convert focal length (mm) to radians for FOV
         const halfSensorRatio = (SENSOR_WIDTH_MM / 2) / camera.focalLength;
         const hfovRadians = 2 * Math.atan(halfSensorRatio);
 
-        // Max range for visual cone (fixed at 15 meters for 2D visualization clarity)
         const maxRangeMeters = 15; 
-        const maxRangePixels = maxRangeMeters * SCALING_FACTOR;
+        const maxRangePixels = maxRangeMeters * SCALING_FACTOR_PIXELS_PER_METER;
 
-        const halfAngle = hfovRadians / 2;
-
-        // Calculate Coverage Width (W_cov) at max range
-        const coverageWidth = 2 * maxRangeMeters * Math.tan(halfAngle);
-        const pixelsHorizontal = 2560; // Assuming 4MP camera for calculation
-        
-        // Calculate PPM at max range (for DORI display)
+        const coverageWidth = 2 * maxRangeMeters * Math.tan(hfovRadians / 2);
+        const pixelsHorizontal = 2560; // Assuming 4MP camera
         const ppmAtMaxRange = pixelsHorizontal / coverageWidth;
 
-        // Determine DORI color
-        let doriColor = 'rgba(255, 0, 0, 0.2)'; // Red - Detection
-        if (ppmAtMaxRange >= DORI_THRESHOLDS.IDENTIFICATION) doriColor = 'rgba(0, 191, 255, 0.2)'; // Deep Blue/Cyan
-        else if (ppmAtMaxRange >= DORI_THRESHOLDS.RECOGNITION) doriColor = 'rgba(124, 252, 0, 0.2)'; // Lime Green
-        else if (ppmAtMaxRange >= DORI_THRESHOLDS.OBSERVATION) doriColor = 'rgba(255, 255, 0, 0.2)'; // Yellow
+        let doriColor = 'rgba(239, 68, 68, 0.2)'; // Red - Detection
+        if (ppmAtMaxRange >= DORI_THRESHOLDS.IDENTIFICATION) doriColor = 'rgba(59, 130, 246, 0.2)'; // Blue
+        else if (ppmAtMaxRange >= DORI_THRESHOLDS.RECOGNITION) doriColor = 'rgba(16, 185, 129, 0.2)'; // Green
+        else if (ppmAtMaxRange >= DORI_THRESHOLDS.OBSERVATION) doriColor = 'rgba(251, 191, 36, 0.2)'; // Yellow
         
         return {
             hfovRadians: hfovRadians,
@@ -259,17 +261,15 @@
         const x = camera.x;
         const y = camera.y;
         const radius = 6;
-
-        // 1. Draw FOV Cone
         const fov = calculateCameraFOV(camera);
         
+        // 1. Draw FOV Cone
         CTX.fillStyle = fov.doriColor;
         CTX.beginPath();
         CTX.moveTo(x, y);
         const startAngle = camera.angle - (fov.hfovRadians / 2);
         const endAngle = camera.angle + (fov.hfovRadians / 2);
         
-        // Draw the arc (cone base)
         const x1 = x + fov.maxRangePixels * Math.cos(startAngle);
         const y1 = y + fov.maxRangePixels * Math.sin(startAngle);
         const x2 = x + fov.maxRangePixels * Math.cos(endAngle);
@@ -280,44 +280,47 @@
         CTX.closePath();
         CTX.fill();
 
-        // 2. Draw Camera Body (Circle) - Cyan Node
-        CTX.fillStyle = '#00FFFF'; 
+        // 2. Draw Camera Body (SVG/Circle)
+        // Use SVG path for a cleaner icon
+        CTX.fillStyle = '#3b82f6'; // Blue
+        CTX.strokeStyle = '#1d4ed8';
+        CTX.lineWidth = 1.5;
+        
         CTX.beginPath();
         CTX.arc(x, y, radius, 0, 2 * Math.PI);
         CTX.fill();
+        CTX.stroke();
         
         // 3. Draw Directional Pointer
-        CTX.strokeStyle = '#00FFFF';
+        CTX.strokeStyle = '#1d4ed8';
         CTX.lineWidth = 2;
         CTX.beginPath();
         CTX.moveTo(x, y);
         CTX.lineTo(x + radius * 3 * Math.cos(camera.angle), y + radius * 3 * Math.sin(camera.angle));
         CTX.stroke();
 
-        // 4. Draw Label (Focal Length and DORI PPM)
+        // 4. Draw Label
         CTX.font = '10px Inter';
-        CTX.fillStyle = '#e2e8f0'; // Light gray text
-        const ppmText = `${Math.round(fov.ppmAtMaxRange)} PPM`;
+        CTX.fillStyle = '#1f2937'; 
         CTX.fillText(`${camera.focalLength}mm`, x + 10, y - 5);
-        CTX.fillText(ppmText, x + 10, y + 10);
+        CTX.fillText(`${Math.round(fov.ppmAtMaxRange)} PPM`, x + 10, y + 10);
     }
     
     function drawDoor(door) {
         const size = 15;
-        // Door/Window asset is a high-vis yellow square
-        CTX.fillStyle = door.covered ? 'rgba(0, 255, 0, 0.6)' : 'rgba(255, 204, 0, 0.9)'; 
+        CTX.fillStyle = door.covered ? 'rgba(16, 185, 129, 0.8)' : 'rgba(251, 191, 36, 0.9)'; // Green or Yellow
         CTX.fillRect(door.x - size / 2, door.y - size / 2, size, size);
-        CTX.strokeStyle = '#333';
+        CTX.strokeStyle = '#d97706';
         CTX.lineWidth = 2;
         CTX.strokeRect(door.x - size / 2, door.y - size / 2, size, size);
         CTX.font = '8px Inter';
-        CTX.fillStyle = '#1a202c'; // Dark text for contrast on yellow
+        CTX.fillStyle = '#1f2937';
         CTX.fillText(door.covered ? "SECURE" : "EXPOSED", door.x - 12, door.y + 20);
     }
 
     function drawWall(wall) {
-        if (!wall.endX) return; // Wall not finished
-        CTX.strokeStyle = '#a0aec0'; // Light gray for structure
+        if (!wall.endX) return; 
+        CTX.strokeStyle = '#4b5563'; 
         CTX.lineWidth = 5;
         CTX.beginPath();
         CTX.moveTo(wall.startX, wall.startY);
@@ -326,8 +329,12 @@
     }
     
     function drawAll() {
-        // Clear canvas
         CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
+        
+        // 0. Draw Map Background if loaded
+        if (mapBackground.loaded && mapBackground.image) {
+            CTX.drawImage(mapBackground.image, 0, 0, CANVAS.width, CANVAS.height);
+        }
         
         drawGrid();
 
@@ -347,15 +354,48 @@
             
             // Highlight selected object
             if (currentState.selectedObject === obj) {
-                CTX.strokeStyle = 'red';
-                CTX.lineWidth = 2;
+                CTX.strokeStyle = '#dc2626'; // Red
+                CTX.lineWidth = 3;
                 CTX.strokeRect(obj.x - 10, obj.y - 10, 20, 20);
             }
         });
     }
 
     /**
-     * Interaction Handlers (Mostly unchanged)
+     * Map Integration Mockup
+     */
+    function importMapSnapshot() {
+        const address = document.getElementById('map-address').value;
+        if (!address) {
+            showMessage("Please enter an address first.", 'text-red-500');
+            return;
+        }
+
+        showMessage(`Searching for "${address}" and loading snapshot...`, 'text-indigo-600');
+        
+        // --- High-Fidelity Mockup Logic ---
+        // In a real app, this would call a geolocation API (e.g., Google Maps) 
+        // and fetch map tiles for the canvas. Here, we use a placeholder image.
+        
+        mapBackground.image = new Image();
+        mapBackground.image.onload = () => {
+            mapBackground.loaded = true;
+            // Clear all existing objects (since the scale/context changes)
+            currentState.objects = []; 
+            saveDesign();
+            drawAll();
+            showMessage(`✅ Map snapshot loaded for "${address}". Scale: 50 pixels ≈ 1 meter.`, 'text-green-600');
+        };
+        mapBackground.image.onerror = () => {
+            mapBackground.loaded = false;
+            showMessage('Error loading map image placeholder.', 'text-red-500');
+        }
+        mapBackground.image.src = mapBackground.url;
+    }
+
+
+    /**
+     * Drag and Drop Interaction Handlers
      */
 
     function getMousePos(event) {
@@ -366,26 +406,44 @@
         };
     }
 
+    function getObjectAtPos(x, y) {
+        const tolerance = 15;
+        for (const obj of currentState.objects) {
+            if (obj.type === 'wall') continue; 
+            const dx = obj.x - x;
+            const dy = obj.y - y;
+            if (Math.sqrt(dx * dx + dy * dy) < tolerance) {
+                return obj;
+            }
+        }
+        return null;
+    }
+
     CANVAS.addEventListener('mousedown', (event) => {
         const pos = getMousePos(event);
-        currentState.lastX = pos.x;
-        currentState.lastY = pos.y;
         currentState.isDrawing = true;
-        currentState.selectedObject = null; 
 
-        const clickedObj = getObjectAtPos(pos.x, pos.y);
+        // 1. Check for Drag
+        draggedObject = getObjectAtPos(pos.x, pos.y);
         
-        if (clickedObj && (currentState.mode === 'move' || currentState.mode === 'delete')) {
-            currentState.selectedObject = clickedObj;
-            if (currentState.mode === 'delete') {
-                deleteObject(clickedObj);
-            }
-        } else if (currentState.mode === 'camera') {
+        if (draggedObject) {
+            dragOffsetX = pos.x - draggedObject.x;
+            dragOffsetY = pos.y - draggedObject.y;
+            CANVAS.style.cursor = 'grabbing';
+            currentState.selectedObject = draggedObject; // Select for rotation/delete
+            return; 
+        }
+
+        // 2. Handle Placement/Wall Drawing (Only if not dragging)
+        currentState.selectedObject = null;
+        if (currentState.mode === 'camera') {
             placeCamera(pos.x, pos.y);
         } else if (currentState.mode === 'door') {
             placeDoor(pos.x, pos.y);
         } else if (currentState.mode === 'wall') {
             startWall(pos.x, pos.y);
+        } else if (currentState.mode === 'delete' && draggedObject) {
+            deleteObject(draggedObject);
         }
         
         drawAll();
@@ -393,32 +451,46 @@
 
     CANVAS.addEventListener('mousemove', (event) => {
         const pos = getMousePos(event);
-        if (currentState.isDrawing) {
+
+        if (draggedObject) {
+            // Drag the object
+            draggedObject.x = pos.x - dragOffsetX;
+            draggedObject.y = pos.y - dragOffsetY;
+            drawAll();
+        } else if (currentState.isDrawing) {
+            // Draw wall in progress
             if (currentState.mode === 'wall' && currentState.objects.length > 0) {
                 const wall = currentState.objects[currentState.objects.length - 1];
                 if (wall.type === 'wall') {
                     wall.endX = pos.x;
                     wall.endY = pos.y;
                 }
-            } else if (currentState.mode === 'move' && currentState.selectedObject) {
-                currentState.selectedObject.x = pos.x;
-                currentState.selectedObject.y = pos.y;
             }
-        } 
-        drawAll();
+            drawAll();
+        } else {
+             // Change cursor on hover for draggable items
+            const hoverObj = getObjectAtPos(pos.x, pos.y);
+            CANVAS.style.cursor = hoverObj ? 'grab' : 'default';
+        }
     });
 
     CANVAS.addEventListener('mouseup', (event) => {
         currentState.isDrawing = false;
         
+        // Finalize Wall
         if (currentState.mode === 'wall' && currentState.objects.length > 0) {
             const wall = currentState.objects[currentState.objects.length - 1];
             if (wall.type === 'wall' && wall.startX === wall.endX && wall.startY === wall.endY) {
-                // Single point wall, remove it
-                currentState.objects.pop();
+                currentState.objects.pop(); // Remove single-click wall
             }
         }
         
+        // Finalize Drag
+        if (draggedObject) {
+            draggedObject = null;
+        }
+
+        CANVAS.style.cursor = 'default';
         saveDesign();
         drawAll();
     });
@@ -434,28 +506,15 @@
             clickedObj.angle = (clickedObj.angle + Math.PI / 4) % (2 * Math.PI);
             saveDesign();
             drawAll();
-            showMessage('Camera rotated 45° clockwise.', 'text-cyan-400');
+            showMessage('Camera rotated 45° clockwise.', 'text-indigo-600');
         }
     });
 
 
-    function getObjectAtPos(x, y) {
-        const tolerance = 15;
-        for (const obj of currentState.objects) {
-            if (obj.type === 'wall') continue; 
-            const dx = obj.x - x;
-            const dy = obj.y - y;
-            if (Math.sqrt(dx * dx + dy * dy) < tolerance) {
-                return obj;
-            }
-        }
-        return null;
-    }
-
     function setMode(newMode) {
         currentState.mode = newMode;
-        document.getElementById('simulatorCanvas').style.cursor = newMode === 'move' ? 'grab' : (newMode === 'delete' ? 'crosshair' : 'crosshair');
         currentState.selectedObject = null;
+        CANVAS.style.cursor = 'default';
     }
     
     function updateCameraSettings() {
@@ -464,7 +523,7 @@
     }
 
     /**
-     * Object Placement
+     * Object Placement/Modification
      */
 
     function placeCamera(x, y) {
@@ -481,7 +540,7 @@
             mountHeight: mountHeight
         };
         currentState.objects.push(newCamera);
-        showMessage('Camera deployed. Right-click to rotate.', 'text-green-400');
+        showMessage('Camera deployed. Drag to move, right-click to rotate.', 'text-green-600');
     }
 
     function placeDoor(x, y) {
@@ -493,7 +552,7 @@
             covered: false 
         };
         currentState.objects.push(newDoor);
-        showMessage('Entry Point logged.', 'text-yellow-400');
+        showMessage('Entry Point logged.', 'text-yellow-660');
     }
     
     function startWall(x, y) {
@@ -506,27 +565,30 @@
             endY: y
         };
         currentState.objects.push(newWall);
-        showMessage('Drawing structure. Click again to end wall segment.', 'text-gray-400');
     }
     
     function deleteObject(obj) {
-        currentState.objects = currentState.objects.filter(o => o.id !== obj.id);
-        currentState.selectedObject = null;
-        saveDesign();
-        drawAll();
-        showMessage(`🗑️ Asset deleted: ${obj.type.toUpperCase()}`, 'text-red-500');
+        if (obj) {
+             currentState.objects = currentState.objects.filter(o => o.id !== obj.id);
+             currentState.selectedObject = null;
+             saveDesign();
+             drawAll();
+             showMessage(`🗑️ Asset deleted: ${obj.type.toUpperCase()}`, 'text-red-700');
+        }
     }
     
     function clearCanvasPrompt() {
         alertUser(`
-            <h3 class="text-xl font-bold text-red-500 mb-4">CONFIRM DATA WIPE</h3>
-            <p>Are you sure you want to clear the entire blueprint? This action is irreversible.</p>
+            <h3 class="text-xl font-bold text-red-700 mb-4">CONFIRM DATA WIPE</h3>
+            <p>Are you sure you want to clear the entire blueprint and any loaded maps? This action is irreversible.</p>
         `, () => {
             currentState.objects = [];
+            mapBackground.loaded = false;
+            mapBackground.image = null;
             currentState.selectedObject = null;
             saveDesign();
             drawAll();
-            showMessage('Blueprint wiped. System ready for new deployment.', 'text-red-500');
+            showMessage('Blueprint wiped. System ready for new deployment.', 'text-red-700');
         });
     }
 
@@ -536,16 +598,16 @@
 
     function saveDesign() {
         const designString = JSON.stringify(currentState.objects);
-        localStorage.setItem('cctv_simulator_design_v2', designString);
+        localStorage.setItem('cctv_simulator_design_v3', designString);
     }
 
     function loadDesign() {
-        const designString = localStorage.getItem('cctv_simulator_design_v2');
+        const designString = localStorage.getItem('cctv_simulator_design_v3');
         if (designString) {
             try {
                 const loadedObjects = JSON.parse(designString);
                 currentState.objects = loadedObjects.filter(o => o.type === 'camera' || o.type === 'door' || o.type === 'wall');
-                showMessage('Previous blueprint loaded.', 'text-gray-400');
+                showMessage('Previous design loaded.', 'text-gray-600');
             } catch (e) {
                 console.error("Failed to load design:", e);
             }
@@ -558,24 +620,21 @@
         const dataURL = CANVAS.toDataURL("image/png");
         const a = document.createElement('a');
         a.href = dataURL;
-        // Allows for easy PDF insertion
-        a.download = 'CCTV_Plan_Guardian_Pro_Blueprint.png'; 
+        a.download = 'CCTV_Plan_Guardian_Pro_V3.png'; 
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        showMessage('✅ Blueprint downloaded as PNG (High-res for PDF reports).', 'text-green-500');
+        showMessage('✅ Plan downloaded as PNG. Ready for inclusion in PDF reports.', 'text-green-600');
     }
     
     function copyShareLink() {
-        // This is a placeholder for real-world cloud sharing
         const simulatedUrl = window.location.href.split('?')[0];
 
-        // The user would typically host this page, so sharing the URL is the simplest way.
         navigator.clipboard.writeText(simulatedUrl).then(() => {
-            showMessage('🔗 Link to this tool copied. (For production, designs are saved to a cloud ID.)', 'text-cyan-400');
+            showMessage('🔗 Share Link Copied! (Design persistence requires a cloud server.)', 'text-blue-600');
         }).catch(err => {
             console.error('Could not copy text: ', err);
-            showMessage('Failed to copy link. Try downloading the image instead.', 'text-red-500');
+            showMessage('Failed to copy link. Try downloading the image instead.', 'text-red-600');
         });
     }
 
@@ -583,11 +642,11 @@
         const msgBox = document.getElementById('message-box');
         msgBox.textContent = text;
         msgBox.className = `mt-4 text-center font-medium ${colorClass}`;
-        setTimeout(() => { msgBox.textContent = ''; msgBox.className = 'mt-4 text-center font-medium text-gray-300'; }, 5000);
+        setTimeout(() => { msgBox.textContent = ''; msgBox.className = 'mt-4 text-center font-medium text-gray-700'; }, 5000);
     }
 
     /**
-     * Design Analysis and Suggestion (Simplified logic remains)
+     * Design Analysis and Suggestion
      */
     function assessDesign() {
         const cameras = currentState.objects.filter(obj => obj.type === 'camera');
@@ -597,7 +656,7 @@
         let recommendationText = '';
         let uncoveredDoors = doors.length;
         
-        // --- Coverage Calculation ---
+        // --- Coverage Calculation --- (Simplified for 2D FOV check)
         doors.forEach(door => {
             let isCovered = false;
             cameras.forEach(camera => {
@@ -619,7 +678,6 @@
                     const normalizedAngle = (a) => (a % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
                     
                     if (cameraStartAngle < 0 || cameraEndAngle > 2 * Math.PI) {
-                        // Handle wrapping 
                         if (normalizedAngle(angleToDoor) >= normalizedAngle(cameraStartAngle) || normalizedAngle(angleToDoor) <= normalizedAngle(cameraEndAngle)) {
                              isCovered = true;
                         }
@@ -636,34 +694,34 @@
 
         // --- Recommendation Generation ---
         if (cameras.length === 0) {
-            recommendationText += '<p class="text-red-500 font-bold">// STATUS: OFFLINE</p> <p>Deploy at least one camera asset to initiate system analysis.</p>';
+            recommendationText += '<p class="text-red-600 font-bold">STATUS: OFFLINE</p> <p>Deploy at least one camera asset to initiate system analysis.</p>';
         } else {
-            recommendationText += `<p class="text-cyan-400 font-bold">// COVERAGE RATING: ${coverageScore.toFixed(0)}% </p>`;
+            recommendationText += `<p class="text-indigo-600 font-bold">COVERAGE RATING: ${coverageScore.toFixed(0)}% </p>`;
             
             if (uncoveredDoors > 0) {
-                recommendationText += `<p class="text-red-500">❌ **WARNING: ${uncoveredDoors} entry points are unsecured.** Re-aim cameras (right-click) or deploy wider-angle 2.8mm lenses to eliminate structural blind spots.</p>`;
+                recommendationText += `<p class="text-red-600">❌ **WARNING:** ${uncoveredDoors} entry points are unsecured. Adjust camera positions/angles (right-click) or use wider-angle lenses (2.8mm) to cover blind spots.</p>`;
             } else {
-                 recommendationText += '<p class="text-lime-400">✅ **OPTIMAL: All designated entry points are secured.** Your asset placement is highly effective.</p>';
+                 recommendationText += '<p class="text-green-600">✅ **OPTIMAL:** All designated entry points are secured. Placement is highly effective.</p>';
             }
             
             let totalPPM = cameras.reduce((sum, cam) => sum + calculateCameraFOV(cam).ppmAtMaxRange, 0);
             let avgPPM = totalPPM / cameras.length;
             
-            recommendationText += `<p class="text-gray-400">Average System PPM: ${avgPPM.toFixed(0)}. </p>`;
+            recommendationText += `<p class="text-gray-600">Average System PPM: ${avgPPM.toFixed(0)}. </p>`;
             
             if (avgPPM < DORI_THRESHOLDS.RECOGNITION) {
-                recommendationText += `<p class="text-yellow-500">⚠️ **CLARITY ALERT:** Average image clarity is low (below Recognition). For reliable identification (faces/plates), reduce camera range or switch to a longer lens (6mm) to boost PPM.</p>`;
+                recommendationText += `<p class="text-orange-600">⚠️ **CLARITY ALERT:** Image clarity is low (below Recognition). For reliable identification (faces/plates), reduce camera range or use a longer lens (6mm).</p>`;
             } else {
-                recommendationText += `<p class="text-cyan-400">✨ **HIGH-RES STATUS:** Clarity is excellent for recognition and identification requirements.</p>`;
+                recommendationText += `<p class="text-blue-600">✨ **HIGH-RES STATUS:** Clarity is sufficient for high-level evidence capture.</p>`;
             }
         }
         
         alertUser(`
-            <h3 class="text-2xl font-bold text-cyan-400 mb-4">SYSTEM DEPLOYMENT ANALYSIS</h3>
-            <div class="space-y-3 text-gray-300 leading-relaxed">${recommendationText}</div>
-        `, () => {}); // No confirmation action needed for analysis
+            <h3 class="text-2xl font-bold text-indigo-700 mb-4">SYSTEM DEPLOYMENT ANALYSIS</h3>
+            <div class="space-y-3 text-gray-700 leading-relaxed">${recommendationText}</div>
+        `, () => {}); 
         
-        drawAll(); // Update door status visually
+        drawAll(); 
     }
     
     // Custom Modal Function (replaces alert/confirm)
@@ -674,19 +732,19 @@
         if (!modal) {
             modal = document.createElement('div');
             modal.id = modalId;
-            modal.className = 'fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50 p-4';
+            modal.className = 'fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4';
             document.body.appendChild(modal);
         }
 
         modal.innerHTML = `
-            <div class="glass-card p-8 rounded-xl shadow-3xl max-w-lg w-full border border-cyan-700">
-                <div class="space-y-4 text-white">${htmlContent}</div>
+            <div class="main-card p-8 rounded-xl shadow-2xl max-w-lg w-full border border-indigo-300">
+                <div class="space-y-4 text-gray-800">${htmlContent}</div>
                 <div class="mt-6 flex justify-end space-x-3">
-                    <button id="modal-close-btn" class="neon-btn btn-cyan px-4 py-2">
-                        ACKNOWLEDGE
+                    <button id="modal-close-btn" class="action-btn bg-indigo-600 text-white px-4 py-2">
+                        CLOSE
                     </button>
                     ${confirmCallback.toString().includes("clearCanvasPrompt") ? 
-                        `<button id="modal-confirm-btn" class="neon-btn btn-red px-4 py-2">
+                        `<button id="modal-confirm-btn" class="action-btn bg-red-600 text-white px-4 py-2">
                             CONFIRM WIPE
                         </button>` : ''}
                 </div>
@@ -709,7 +767,6 @@
 
     // Initialization
     window.onload = function() {
-        // Dynamic Canvas sizing
         CANVAS.width = CANVAS.offsetWidth;
         CANVAS.height = 600; 
         loadDesign();
@@ -721,6 +778,5 @@
     });
 
 </script>
-
 </body>
 </html>
